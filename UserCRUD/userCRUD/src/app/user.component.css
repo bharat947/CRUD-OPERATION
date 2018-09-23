@@ -1,0 +1,50 @@
+h1 {
+    font-size: 2.0em;
+    margin: 20px 0 0 0;
+    font-weight: 400;   
+}
+h3 { 
+	color: blue;
+}
+table {
+    border-collapse: collapse;
+}
+ th, td ,tr {
+    border: 1px solid black;
+	font-size:17px;
+}
+input {
+    width: 75%;
+    margin: 8px 0;
+	
+	font-size:17px;
+}
+
+.error{
+    color: red;
+    font-size: 20px;
+}
+.success{
+    color: green;
+    font-size: 20px;
+}
+
+
+#content {   
+    overflow:auto;
+    width: 100%;
+    border: 1px solid black; 
+    background: white;
+    margin: 2em auto;
+  }
+  
+  #left, #right {
+    width: 50%; 
+    margin:5px; 
+    padding: 1em;
+    background: white;
+    border: #008CBA;
+    border-right: 1px solid black;
+  }
+  
+ 

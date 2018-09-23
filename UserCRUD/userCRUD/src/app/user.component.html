@@ -1,0 +1,113 @@
+<app-header></app-header>
+
+<div id="content">  
+    <div style="width: 50%; float:left; border: 1px solid black;">
+      <div style="padding-left: 5px; ">
+       
+      
+         <table style="padding-top: 0px;">
+           <tr><td>
+              <img src="assets/images/user.png" class="rounded float-left" alt="..." style="width: 300px;height: 300px;">
+           </td>
+           <td style="width: 100%; padding-left: 10px;">
+          <h3 *ngIf="userIdToUpdate; else create"> 
+              Update Data 
+           </h3>
+           <ng-template #create>
+              <h3> Insert Data Here  </h3>
+           </ng-template>
+           <div>
+             <fieldset>
+              <form [formGroup]="userForm" (ngSubmit)="onUserFormSubmit()" class="form">
+                <div><label> Enter Full Name</label></div>
+                 <div>
+                  <input formControlName="name" class="form-control">
+                       <label *ngIf="userForm.get('name').invalid && processValidation" [ngClass] = "'error'"> Name is required. </label>
+                 </div>
+                    
+                <div><label>Enter Email</label></div>
+                <div>
+                  <input formControlName="email" class="form-control">
+                   <label *ngIf="userForm.get('email').invalid && processValidation" [ngClass] = "'error'"> Email is required. </label>
+                </div>
+                <div><label>Enter Mobile</label></div>
+                <div>
+                  <input formControlName="mobile" class="form-control">
+                   <label *ngIf="userForm.get('mobile').invalid && processValidation" [ngClass] = "'error'"> Mobile is required. </label>
+                </div>
+                <div><label>Enter Address</label></div>
+                 
+                <div>
+                <input formControlName="address" class="form-control">
+                 <label *ngIf="userForm.get('address').invalid && processValidation" [ngClass] = "'error'"> Address is required. </label>
+              </div>
+                <div><label>Profile Picture</label></div>
+                <div>
+                  <input formControlName="image" class="form-control" >
+                   <label *ngIf="userForm.get('image').invalid && processValidation" [ngClass] = "'error'"> Profile Picture is required. </label>
+                </div>
+                  <div><br>
+                    <button *ngIf="!userIdToUpdate" class="btn btn-primary">CREATE</button>  
+                  <button *ngIf="userIdToUpdate" class="btn btn-success">UPDATE</button>  
+                    <button (click)="backToCreateUser()" *ngIf="userIdToUpdate" class="btn btn-primary">Go Back</button>  
+                </div>
+               </form> 
+          </fieldset>
+            <br/>
+            <div *ngIf="statusCode; else processing">
+              <div *ngIf="statusCode === 201" [ngClass] = "'success'">
+                 User added successfully.
+              </div>   
+              <div *ngIf="statusCode === 409" [ngClass] = "'success'">
+                   User already exists.
+              </div>   	
+              <div *ngIf="statusCode === 200" [ngClass] = "'success'">
+                   User updated successfully.
+              </div>   	      
+              <div *ngIf="statusCode === 204" [ngClass] = "'success'">
+                   User deleted successfully.
+              </div>   	   
+              <div *ngIf="statusCode === 500" [ngClass] = "'error'">
+                   Internal Server Error.
+              </div>   	
+            </div>
+            <ng-template #processing>
+             <img *ngIf="requestProcessing" src="assets/images/loading.gif">
+            </ng-template>
+           </div>
+           
+           
+</td>
+</tr>
+          </table>
+      
+         
+     </div>
+        
+       
+      
+     </div>
+      
+<div style="width: 50%; float:right">
+  <div style="padding-right: 5px; padding-left: 5px;padding-top: 5px;">
+        <h3>User Detail</h3>
+        <table class="table ">
+          <tr class="bg-primary"><th>Image</th> <th>Full Name</th><th>email</th><th>mobile</th><th>address</th><th>CRUD Operation</th></tr>
+          <tr *ngFor="let user of allUsers">
+              <td><span style="color:fuchsia;"><img src="assets/images/{{user.image}}" style="width: 50px;height: 50px;"/></span></td>
+             <td><span style="color: green;">{{user.name}}</span></td>
+              <td><span style="color: green;">{{user.email}}</span></td>
+             <td><span style="color: green;">{{user.mobile}}</span></td>
+             <td><span style="color:fuchsia;">{{user.address}}</span></td>
+            
+          <td><button type="button" (click)="loadUserToEdit(user.userId)" class="btn btn-success">Update</button>  
+          <button type="button" (click)="deleteUser(user.userId)" class="btn btn-danger">Delete</button></td>
+          </tr>
+        </table>
+        </div>  
+      </div>
+    </div>
+      
+      
+
+
